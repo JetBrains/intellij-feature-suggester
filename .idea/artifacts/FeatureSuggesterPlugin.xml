@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact name="FeatureSuggesterPlugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/FeatureSuggesterPlugin</output-path>
+    <root id="root">
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="scala-library" />
+        <element id="archive" name="feature-suggester-plugin.jar">
+          <element id="directory" name="META-INF">
+            <element id="dir-copy" path="$PROJECT_DIR$/META-INF" />
+          </element>
+          <element id="module-output" name="FeatureSuggester" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
