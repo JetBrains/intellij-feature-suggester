@@ -12,7 +12,7 @@ object SuggestingUtil {
     val descriptor = ProductivityFeaturesRegistry.getInstance().getFeatureDescriptor(descriptorId)
     val lastTimeUsed = descriptor.getLastTimeUsed
     val delta = System.currentTimeMillis() - lastTimeUsed
-    if (delta < usageDelta) return FeatureUsageSuggestion()
+    if (delta < usageDelta) return FeatureUsageSuggestion
     PopupSuggestion(popupMessage)
   }
 }
