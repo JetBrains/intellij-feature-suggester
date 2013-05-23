@@ -9,7 +9,12 @@
 
     <idea-version since-build="129.354" until-build="130.0"/>
 
-    <extensions defaultExtensionNs="com.intellij">
+    <extensionPoints>
+        <extensionPoint name="featureSuggester" interface="org.jetbrains.plugins.feature.suggester.FeatureSuggester"/>
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="org.intellij">
+        <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.SecondToArrayCompletionSuggester"/>
     </extensions>
 
     <application-components>
