@@ -51,7 +51,8 @@ class FeatureSuggesterProjectComponent(project: Project) extends ProjectComponen
           val hint: LightweightHint = new PatchedLightweightHint(label) //todo: this is hack to avoid hiding on parameter info popup
           val hintManager = HintManager.getInstance().asInstanceOf[HintManagerImpl]
           val p: Point = hintManager.getHintPosition(hint, editor, HintManager.ABOVE)
-          hintManager.showEditorHint(hint, editor, p, HintManager.HIDE_BY_ESCAPE, 0, true)
+          IdeTooltipManager.getInstance().hideCurrentNow(false)
+          hintManager.showEditorHint(hint, editor, p, HintManager.HIDE_BY_ESCAPE, 0, false)
           return
       }
     }

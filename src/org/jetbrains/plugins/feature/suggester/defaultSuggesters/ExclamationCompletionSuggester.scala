@@ -9,6 +9,7 @@ import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
 import scala.Some
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.featureStatistics.ProductivityFeaturesRegistry
+import com.intellij.codeInsight.completion.impl.CompletionServiceImpl
 
 /**
  * @author Alefas
@@ -24,9 +25,14 @@ class ExclamationCompletionSuggester extends FeatureSuggester {
   private var lastCompletionCall: Long = 0
 
   def getSuggestion(actions: List[UserAction]): Suggestion = {
-    val commandName = CommandProcessor.getInstance().getCurrentCommandName
-    if (commandName == "Choose Lookup Item") {
-      lastCompletionCall = System.currentTimeMillis()
+    val phase = CompletionServiceImpl.getCompletionPhase
+    if (phase != null) {
+      val indicator = phase.indicator
+      if (indicator != null) {
+        if (!indicator.isAutopopupCompletion) {
+          lastCompletionCall = System.currentTimeMillis()
+        }
+      }
     }
     actions.last match {
       case ChildAddedAction(_, Expression(expression)) =>
