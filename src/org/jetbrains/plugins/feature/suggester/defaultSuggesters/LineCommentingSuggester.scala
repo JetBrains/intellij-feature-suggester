@@ -4,6 +4,7 @@ import org.jetbrains.plugins.feature.suggester.{PopupSuggestion, NoSuggestion, S
 import org.jetbrains.plugins.feature.suggester.changes.{ChildRemovedAction, ChildReplacedAction, ChildAddedAction, UserAction}
 import com.intellij.psi.{PsiErrorElement, PsiFile, PsiComment}
 import com.intellij.openapi.util.text.StringUtil
+import com.intellij.openapi.command.CommandProcessor
 
 /**
  * @author Alefas
@@ -17,6 +18,9 @@ class LineCommentingSuggester extends FeatureSuggester {
   private var uncommentingActionStart: Option[UserAction] = None
 
   def getSuggestion(actions: List[UserAction]): Suggestion = {
+    val name = CommandProcessor.getInstance().getCurrentCommandName
+    if (name != null) return NoSuggestion //it's not user typing action, so let's do nothing
+
     actions.last match {
       case ChildAddedAction(_, child: PsiComment) if child.getText.startsWith("//") =>
         if (checkCommentAdded(child.getContainingFile, child.getTextRange.getStartOffset)) {
