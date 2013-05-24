@@ -1,7 +1,7 @@
 package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
-import org.jetbrains.plugins.feature.suggester.changes.{ChildReplacedAction, ChildAddedAction, ChildRemovedAction, UserAction}
+import org.jetbrains.plugins.feature.suggester.changes._
 import com.intellij.psi._
 import com.intellij.ide.ClipboardSynchronizer
 import java.awt.datatransfer.DataFlavor
@@ -9,7 +9,6 @@ import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
-import scala.Some
 
 /**
  * @author Alefas
@@ -22,7 +21,7 @@ class IntroduceVariableSuggester extends FeatureSuggester {
   private case class Expr(exprText: String, method: PsiMethod)
   private var copiedExpression: Option[Expr] = None
 
-  def getSuggestion(actions: List[UserAction]): Suggestion = {
+  def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     actions.last match {
       case ChildRemovedAction(parent, child: PsiExpression) =>
         val contents = ClipboardSynchronizer.getInstance().getContents

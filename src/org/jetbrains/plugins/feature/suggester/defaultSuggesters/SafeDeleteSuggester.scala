@@ -1,8 +1,8 @@
 package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
-import org.jetbrains.plugins.feature.suggester.changes.{ChildRemovedAction, UserAction}
-import com.intellij.psi.{PsiLocalVariable, PsiField, PsiClass, PsiMethod}
+import org.jetbrains.plugins.feature.suggester.changes.{UserAnAction, ChildRemovedAction, UserAction}
+import com.intellij.psi.{PsiField, PsiClass, PsiMethod}
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.ide.{IdeTooltipManager, ClipboardSynchronizer}
 import java.awt.datatransfer.DataFlavor
@@ -16,7 +16,7 @@ class SafeDeleteSuggester extends FeatureSuggester {
 
   private var lastTimeForPopup = 0L
 
-  def getSuggestion(actions: List[UserAction]): Suggestion = {
+  def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     val name = CommandProcessor.getInstance().getCurrentCommandName
     if (name != null) return NoSuggestion //it's not user typing action, so let's do nothing
 

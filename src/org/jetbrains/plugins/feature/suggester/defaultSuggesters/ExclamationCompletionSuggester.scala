@@ -3,12 +3,6 @@ package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
 import org.jetbrains.plugins.feature.suggester.changes._
 import com.intellij.psi._
-import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
-import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
-import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
-import scala.Some
-import com.intellij.openapi.command.CommandProcessor
-import com.intellij.featureStatistics.ProductivityFeaturesRegistry
 import com.intellij.codeInsight.completion.impl.CompletionServiceImpl
 import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
@@ -29,7 +23,7 @@ class ExclamationCompletionSuggester extends FeatureSuggester {
   private var exclaimingExpression: Option[PossibleExclaimingExpression] = None
   private var lastCompletionCall: Long = 0
 
-  def getSuggestion(actions: List[UserAction]): Suggestion = {
+  def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     val phase = CompletionServiceImpl.getCompletionPhase
     if (phase != null) {
       val indicator = phase.indicator

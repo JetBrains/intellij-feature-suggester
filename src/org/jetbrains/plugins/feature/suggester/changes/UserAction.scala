@@ -17,4 +17,10 @@ case class ChildRemovedAction(parent: PsiElement, child: PsiElement) extends Use
 case class PropertyChangedAction(parent: PsiElement) extends UserAction
 case class ChildMovedAction(parent: PsiElement, child: PsiElement, oldParent: PsiElement) extends UserAction
 
+sealed trait UserAnAction {
+  def timestamp: Long
+}
+
+case class BackspaceAction(selectedText: String, timestamp: Long) extends UserAnAction
+
 

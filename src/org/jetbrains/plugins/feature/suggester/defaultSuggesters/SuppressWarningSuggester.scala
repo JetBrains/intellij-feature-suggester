@@ -1,7 +1,7 @@
 package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
-import org.jetbrains.plugins.feature.suggester.changes.{ChildAddedAction, ChildReplacedAction, UserAction}
+import org.jetbrains.plugins.feature.suggester.changes.{UserAnAction, ChildAddedAction, ChildReplacedAction, UserAction}
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.psi.{PsiIdentifier, PsiAnnotation, PsiComment}
 import com.intellij.codeInsight.completion.impl.CompletionServiceImpl
@@ -13,7 +13,7 @@ import com.intellij.codeInsight.completion.impl.CompletionServiceImpl
 class SuppressWarningSuggester extends FeatureSuggester {
   val POPUP_MESSAGE = "Why no to use quickfix for inspection to suppress it (Alt + Enter)"
 
-  def getSuggestion(actions: List[UserAction]): Suggestion = {
+  def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     val name = CommandProcessor.getInstance().getCurrentCommandName
     val phase = CompletionServiceImpl.getCompletionPhase
     if (phase != null) {

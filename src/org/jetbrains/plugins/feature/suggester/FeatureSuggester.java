@@ -3,6 +3,7 @@ package org.jetbrains.plugins.feature.suggester;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.plugins.feature.suggester.changes.UserAction;
+import org.jetbrains.plugins.feature.suggester.changes.UserAnAction;
 import scala.collection.immutable.List;
 
 /**
@@ -17,7 +18,7 @@ public abstract class FeatureSuggester {
     return EP_NAME.getExtensions();
   }
 
-  public abstract Suggestion getSuggestion(List<UserAction> actions);
+  public abstract Suggestion getSuggestion(List<UserAction> actions, List<UserAnAction> anActions);
 
   public abstract String getId();
 

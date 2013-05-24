@@ -1,12 +1,10 @@
 package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
 import org.jetbrains.plugins.feature.suggester._
-import org.jetbrains.plugins.feature.suggester.changes.{ChildReplacedAction, ChildMovedAction, ChildAddedAction, UserAction}
+import org.jetbrains.plugins.feature.suggester.changes._
 import com.intellij.psi._
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.codeInsight.{ExpectedTypeInfo, ExpectedTypesProvider}
-import com.intellij.featureStatistics.ProductivityFeaturesRegistry
-import org.jetbrains.plugins.feature.suggester.FeatureUsageSuggestion
+import com.intellij.codeInsight.ExpectedTypesProvider
 import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
 
@@ -19,7 +17,7 @@ class SecondToArrayCompletionSuggester extends FeatureSuggester {
 
   def getId: String = "Second toArray completion suggester"
 
-  def getSuggestion(actions: List[UserAction]): Suggestion = {
+  def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     actions.last match {
       case ChildAddedAction(_, call: PsiMethodCallExpression) =>
         if (checkMethodCall(call)) {

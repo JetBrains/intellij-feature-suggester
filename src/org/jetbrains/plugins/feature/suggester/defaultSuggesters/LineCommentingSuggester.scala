@@ -1,10 +1,13 @@
 package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
-import org.jetbrains.plugins.feature.suggester.{PopupSuggestion, NoSuggestion, Suggestion, FeatureSuggester}
-import org.jetbrains.plugins.feature.suggester.changes.{ChildRemovedAction, ChildReplacedAction, ChildAddedAction, UserAction}
-import com.intellij.psi.{PsiErrorElement, PsiFile, PsiComment}
-import com.intellij.openapi.util.text.StringUtil
+import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
+import org.jetbrains.plugins.feature.suggester.changes._
+import com.intellij.psi.{PsiErrorElement, PsiComment}
 import com.intellij.openapi.command.CommandProcessor
+import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
+import org.jetbrains.plugins.feature.suggester.PopupSuggestion
 
 /**
  * @author Alefas
@@ -19,7 +22,7 @@ class LineCommentingSuggester extends FeatureSuggester {
 
   private var uncommentingActionStart: Option[UserAction] = None
 
-  def getSuggestion(actions: List[UserAction]): Suggestion = {
+  def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     val name = CommandProcessor.getInstance().getCurrentCommandName
     if (name != null) return NoSuggestion //it's not user typing action, so let's do nothing
 
