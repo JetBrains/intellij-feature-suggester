@@ -10,3 +10,4 @@ implemented few features using this framework:
 - Exclaim sign to finish lookup for not autopopup completion
 - Safe delete
 - Suppress Warnings quickfix
+- Introduce variable
