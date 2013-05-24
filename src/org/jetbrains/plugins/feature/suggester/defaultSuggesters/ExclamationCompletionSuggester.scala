@@ -2,7 +2,7 @@ package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
 import org.jetbrains.plugins.feature.suggester.changes._
-import com.intellij.psi.{PsiElement, PsiType, PsiPrefixExpression, PsiExpression}
+import com.intellij.psi._
 import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
@@ -10,6 +10,11 @@ import scala.Some
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.featureStatistics.ProductivityFeaturesRegistry
 import com.intellij.codeInsight.completion.impl.CompletionServiceImpl
+import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildMovedAction
+import scala.Some
 
 /**
  * @author Alefas
@@ -51,9 +56,16 @@ class ExclamationCompletionSuggester extends FeatureSuggester {
         checkExpression(expression, actions.last)
       case ChildReplacedAction(_, element, oldElement) =>
         updateStartOffset(element.getTextRange.getStartOffset, element.getTextRange.getEndOffset, oldElement.getTextLength)
-      case ChildRemovedAction(_, _) =>
-        //we can't recalculate offset in this case
-        exclaimingExpression = None
+      case ChildRemovedAction(parent, child) =>
+        exclaimingExpression match {
+          case Some(PossibleExclaimingExpression(action, expressionText, offset)) =>
+            if (parent.getTextRange.getStartOffset >= offset) {
+              //do nothing
+            } else if (parent.getTextRange.getEndOffset <= offset) {
+              exclaimingExpression = Some(PossibleExclaimingExpression(action, expressionText, offset - child.getTextLength))
+            } else exclaimingExpression = None //we can't recalculate offset in this case
+          case _ =>
+        }
       case ChildMovedAction(parent, _, oldParent) =>
         //we can't recalculate offset in this case
         exclaimingExpression = None
@@ -89,11 +101,16 @@ class ExclamationCompletionSuggester extends FeatureSuggester {
   private def checkExpressionExclaimed(prefixExpression: PsiPrefixExpression, expression: PsiExpression, actions: List[UserAction]): Boolean = {
     exclaimingExpression match {
       case Some(PossibleExclaimingExpression(action, expressionText, startOffset)) =>
-        if (expression.getText != expressionText) return false
-        if (prefixExpression.getText != "!" + expressionText) return false
+        val newExprText = expression match {
+          case call: PsiMethodCallExpression =>
+            call.getMethodExpression.getText + "("
+          case _ => expression.getText
+        }
+        if (!expressionText.startsWith(newExprText)) return false
+        if (prefixExpression.getOperationSign.getText != "!") return false
         if (prefixExpression.getTextRange.getStartOffset != startOffset) return false
-        if (!actions.takeRight(10).contains(action)) {
-          //looks like action is too old, let's remove it just in case
+        if (!actions.contains(action)) {
+          //looks like action is too old, let's remove it, possibly not to annoy user
           exclaimingExpression = None
           return false
         }
