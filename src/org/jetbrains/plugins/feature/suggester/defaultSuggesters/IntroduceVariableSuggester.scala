@@ -2,10 +2,14 @@ package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, Suggestion, FeatureSuggester}
 import org.jetbrains.plugins.feature.suggester.changes.{ChildReplacedAction, ChildAddedAction, ChildRemovedAction, UserAction}
-import com.intellij.psi.{PsiDeclarationStatement, PsiLocalVariable, PsiMethod, PsiExpression}
+import com.intellij.psi._
 import com.intellij.ide.ClipboardSynchronizer
 import java.awt.datatransfer.DataFlavor
 import com.intellij.psi.util.PsiTreeUtil
+import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
+import scala.Some
 
 /**
  * @author Alefas
@@ -21,6 +25,17 @@ class IntroduceVariableSuggester extends FeatureSuggester {
   def getSuggestion(actions: List[UserAction]): Suggestion = {
     actions.last match {
       case ChildRemovedAction(parent, child: PsiExpression) =>
+        val contents = ClipboardSynchronizer.getInstance().getContents
+        if (contents != null) {
+          val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
+          if (clipboardContent == child.getText) {
+            //let's store this action
+            val method: PsiMethod = PsiTreeUtil.getParentOfType(parent, classOf[PsiMethod], false)
+            if (method == null) return NoSuggestion
+            copiedExpression = Some(Expr(child.getText, method))
+          }
+        }
+      case ChildReplacedAction(parent, error: PsiErrorElement, child: PsiExpression) =>
         val contents = ClipboardSynchronizer.getInstance().getContents
         if (contents != null) {
           val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
