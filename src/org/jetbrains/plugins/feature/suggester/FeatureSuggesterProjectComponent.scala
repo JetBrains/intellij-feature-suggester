@@ -5,19 +5,23 @@ import com.intellij.openapi.project.Project
 import scala.collection.mutable.ListBuffer
 import org.jetbrains.plugins.feature.suggester.changes._
 import com.intellij.psi.{PsiTreeChangeAdapter, PsiTreeChangeEvent, PsiManager}
-import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
-import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
-import org.jetbrains.plugins.feature.suggester.changes.ChildrenChangedAction
 import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.codeInsight.hint.{TooltipController, HintManagerImpl, HintUtil, HintManager}
-import com.intellij.ui.{HintListener, LightweightHint}
+import com.intellij.codeInsight.hint.{HintManagerImpl, HintUtil, HintManager}
+import com.intellij.ui.LightweightHint
 import java.awt.Point
-import java.util.EventObject
 import com.intellij.ide.IdeTooltipManager
 import com.intellij.codeInsight.lookup.LookupManager
 import com.intellij.codeInsight.lookup.impl.LookupManagerImpl
-import com.intellij.util.Alarm
 import com.intellij.lang.java.JavaLanguage
+import com.intellij.openapi.actionSystem._
+import com.intellij.openapi.actionSystem.ex.AnActionListener
+import org.jetbrains.plugins.feature.suggester.changes.ChildRemovedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildReplacedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildrenChangedAction
+import org.jetbrains.plugins.feature.suggester.changes.ChildMovedAction
+import org.jetbrains.plugins.feature.suggester.changes.PropertyChangedAction
+import com.intellij.refactoring.actions.SafeDeleteAction
 
 /**
  * @author Alefas

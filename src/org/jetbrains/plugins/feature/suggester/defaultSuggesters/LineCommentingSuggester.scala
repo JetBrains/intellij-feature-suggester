@@ -20,17 +20,17 @@ class LineCommentingSuggester extends FeatureSuggester {
     actions.last match {
       case ChildAddedAction(_, child: PsiComment) if child.getText.startsWith("//") =>
         if (checkCommentAdded(child.getContainingFile, child.getTextRange.getStartOffset)) {
-          return SuggestingUtil.createSuggestion(DESCRIPTOR_ID, POPUP_MESSAGE)
+          return SuggestingUtil.createSuggestion(Some(DESCRIPTOR_ID), POPUP_MESSAGE)
         }
       case ChildReplacedAction(_, child: PsiComment, oldChild) if child.getText.startsWith("//") &&
         !oldChild.isInstanceOf[PsiComment] =>
         if (checkCommentAdded(child.getContainingFile, child.getTextRange.getStartOffset)) {
-          return SuggestingUtil.createSuggestion(DESCRIPTOR_ID, POPUP_MESSAGE)
+          return SuggestingUtil.createSuggestion(Some(DESCRIPTOR_ID), POPUP_MESSAGE)
         }
       case ChildReplacedAction(_, child, oldChild: PsiComment) if oldChild.getText.startsWith("//") && !child.isInstanceOf[PsiComment] =>
         val offset = child.getTextRange.getStartOffset
         if (checkCommentAdded(child.getContainingFile, offset)) {
-          val suggestion = SuggestingUtil.createSuggestion(DESCRIPTOR_ID, UNCOMMENTING_POPUP_MESSAGE)
+          val suggestion = SuggestingUtil.createSuggestion(Some(DESCRIPTOR_ID), UNCOMMENTING_POPUP_MESSAGE)
           if (suggestion.isInstanceOf[PopupSuggestion]) {
             uncommentingActionStart = Some(actions.last)
           }
@@ -39,7 +39,7 @@ class LineCommentingSuggester extends FeatureSuggester {
       case ChildRemovedAction(parent, child: PsiErrorElement) if child.getText == "/" && uncommentingActionStart.isDefined =>
         if (actions.contains(uncommentingActionStart.get)) {
           uncommentingActionStart = None
-          return SuggestingUtil.createSuggestion(DESCRIPTOR_ID, UNCOMMENTING_POPUP_MESSAGE)
+          return SuggestingUtil.createSuggestion(Some(DESCRIPTOR_ID), UNCOMMENTING_POPUP_MESSAGE)
         }
       case _ =>
     }

@@ -24,11 +24,11 @@ class SecondToArrayCompletionSuggester extends FeatureSuggester {
       case ChildAddedAction(_, call: PsiMethodCallExpression) =>
         if (checkMethodCall(call)) {
           if (call.getArgumentList.getExpressions.size > 0) return NoSuggestion //todo: hack not to suggest in wrong place
-          return SuggestingUtil.createSuggestion("editing.completion.second.smarttype.toar", POPUP_MESSAGE)
+          return SuggestingUtil.createSuggestion(Some("editing.completion.second.smarttype.toar"), POPUP_MESSAGE)
         }
       case ChildReplacedAction(_, call: PsiMethodCallExpression, oldChild) =>
         if (checkMethodCall(call)) {
-          return SuggestingUtil.createSuggestion("editing.completion.second.smarttype.toar", POPUP_MESSAGE)
+          return SuggestingUtil.createSuggestion(Some("editing.completion.second.smarttype.toar"), POPUP_MESSAGE)
         }
       case _ =>
     }

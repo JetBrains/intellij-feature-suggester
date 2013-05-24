@@ -44,7 +44,7 @@ class ExclamationCompletionSuggester extends FeatureSuggester {
         updateStartOffset(prefixExpression.getTextRange.getStartOffset, prefixExpression.getTextRange.getEndOffset, expression.getTextLength)
         if (checkExpressionExclaimed(prefixExpression, expression, actions)) {
           exclaimingExpression = None
-          return SuggestingUtil.createSuggestion(DESCRIPTOR_ID, POPUP_MESSAGE)
+          return SuggestingUtil.createSuggestion(Some(DESCRIPTOR_ID), POPUP_MESSAGE)
         }
       case ChildReplacedAction(_, Expression(expression), oldElement) =>
         updateStartOffset(expression.getTextRange.getStartOffset, expression.getTextRange.getEndOffset, oldElement.getTextLength)
