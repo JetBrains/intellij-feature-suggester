@@ -20,7 +20,7 @@
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.SafeDeleteSuggester"/>
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.SuppressWarningSuggester"/>
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.IntroduceVariableSuggester"/>
-        <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.UnwrapActionSuggester"/>
+        <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.RemoveElseActionSuggester"/>
     </extensions>
 
     <application-components>
