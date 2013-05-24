@@ -3,6 +3,8 @@ package org.jetbrains.plugins.feature.suggester.defaultSuggesters
 import org.jetbrains.plugins.feature.suggester.{NoSuggestion, PopupSuggestion, FeatureUsageSuggestion, Suggestion}
 import com.intellij.featureStatistics.ProductivityFeaturesRegistry
 import com.intellij.openapi.command.CommandProcessor
+import com.intellij.psi.PsiFile
+import com.intellij.openapi.util.text.StringUtil
 
 /**
  * @author Alefas
@@ -21,5 +23,10 @@ object SuggestingUtil {
       case _ =>
     }
     PopupSuggestion(popupMessage)
+  }
+
+  def checkCommentAddedToLineStart(file: PsiFile, offset: Int): Boolean = {
+    val fileBeforeCommentText = file.getText.substring(0, offset)
+    fileBeforeCommentText.reverseIterator.takeWhile(_ != '\n').forall(StringUtil.isWhiteSpace)
   }
 }

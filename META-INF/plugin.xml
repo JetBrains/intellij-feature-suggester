@@ -18,6 +18,8 @@
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.LineCommentingSuggester"/>
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.ExclamationCompletionSuggester"/>
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.SafeDeleteSuggester"/>
+        <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.SuppressWarningSuggester"/>
+        <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.IntroduceVariableSuggester"/>
     </extensions>
 
     <application-components>

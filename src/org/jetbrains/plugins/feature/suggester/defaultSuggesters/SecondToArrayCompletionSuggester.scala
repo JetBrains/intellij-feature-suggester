@@ -15,7 +15,7 @@ import org.jetbrains.plugins.feature.suggester.changes.ChildAddedAction
  * @since 23.05.13
  */
 class SecondToArrayCompletionSuggester extends FeatureSuggester {
-  val POPUP_MESSAGE = "Why not to use second smart completion for 'toArray' method"
+  val POPUP_MESSAGE = "Why not to use second smart completion for 'toArray' method (double Ctrl + Shift + Space)"
 
   def getId: String = "Second toArray completion suggester"
 
