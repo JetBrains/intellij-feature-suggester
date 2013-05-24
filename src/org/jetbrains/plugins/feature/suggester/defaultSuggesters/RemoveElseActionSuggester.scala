@@ -67,7 +67,7 @@ class RemoveElseActionSuggester extends FeatureSuggester {
     NoSuggestion
   }
 
-  def getId: String = "Unwrap action suggester"
+  def getId: String = "Remove else action suggester"
 }
 
 
