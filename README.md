@@ -9,3 +9,4 @@ implemented few features using this framework:
 - Line commenting/uncommenting
 - Exclaim sign to finish lookup for not autopopup completion
 - Safe delete
+- Suppress Warnings quickfix
