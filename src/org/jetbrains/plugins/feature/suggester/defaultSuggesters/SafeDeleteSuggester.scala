@@ -26,13 +26,13 @@ class SafeDeleteSuggester extends FeatureSuggester {
           case _: PsiMethod | _: PsiClass | _: PsiField =>
             val contents = ClipboardSynchronizer.getInstance().getContents
             if (contents != null) {
-              val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
-              if (clipboardContent.contains(child.getText)) return NoSuggestion //this is action with copy to clipboard side effect, so we shouldn't suggest anything
               val delta = System.currentTimeMillis() - lastTimeForPopup
               if (delta < 50) {
                 IdeTooltipManager.getInstance().hideCurrentNow(false)
                 return NoSuggestion //do not suggest in case of deletion for few things
               }
+              val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
+              if (clipboardContent.contains(child.getText)) return NoSuggestion //this is action with copy to clipboard side effect, so we shouldn't suggest anything
               lastTimeForPopup = System.currentTimeMillis()
               return SuggestingUtil.createSuggestion(None, POPUP_MESSAGE)
             }
