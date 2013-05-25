@@ -22,7 +22,8 @@ import org.jetbrains.plugins.feature.suggester.changes.ChildrenChangedAction
 import org.jetbrains.plugins.feature.suggester.changes.ChildMovedAction
 import org.jetbrains.plugins.feature.suggester.changes.PropertyChangedAction
 import com.intellij.refactoring.actions.SafeDeleteAction
-import com.intellij.openapi.editor.actions.BackspaceAction
+import com.intellij.openapi.editor.actions.{DeleteAction, BackspaceAction}
+import org.jetbrains.plugins.feature.suggester.settings.FeatureSuggesterSettings
 
 /**
  * @author Alefas
@@ -69,7 +70,9 @@ class FeatureSuggesterProjectComponent(project: Project) extends ProjectComponen
     if (actionsList.size > ACTION_NUMBER) actionsList.remove(0)
   }
 
-  private def isEnabled(suggester: FeatureSuggester): Boolean = true //todo: enable/disable functionality
+  private def isEnabled(suggester: FeatureSuggester): Boolean = {
+    FeatureSuggesterSettings.getInstance().isEnabled(suggester.getId)
+  }
 
   private def countFeatureUsage(suggester: FeatureSuggester) {
     //todo: enable/disable functionality
@@ -120,6 +123,13 @@ class FeatureSuggesterProjectComponent(project: Project) extends ProjectComponen
             if (editor != null) {
               val selectedText = Option(editor.getSelectionModel.getSelectedText).getOrElse("")
               addAnAction(new changes.BackspaceAction(selectedText, System.currentTimeMillis()))
+            }
+          case d: DeleteAction =>
+            val editor = PlatformDataKeys.EDITOR.getData(dataContext)
+            if (editor != null) {
+              val selectedText = Option(editor.getSelectionModel.getSelectedText).getOrElse("")
+              addAnAction(new changes.BackspaceAction(selectedText, System.currentTimeMillis()))
+              //todo: it should have own DeleteAction...
             }
           case _ =>
         }
