@@ -12,3 +12,4 @@ implemented few features using this framework:
 - Suppress Warnings quickfix
 - Introduce variable
 - Remove else branch
+- Autoindent action
