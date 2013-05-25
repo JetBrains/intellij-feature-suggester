@@ -31,8 +31,13 @@ class SafeDeleteSuggester extends FeatureSuggester {
                 IdeTooltipManager.getInstance().hideCurrentNow(false)
                 return NoSuggestion //do not suggest in case of deletion for few things
               }
-              val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
-              if (clipboardContent.contains(child.getText)) return NoSuggestion //this is action with copy to clipboard side effect, so we shouldn't suggest anything
+              try {
+                val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
+                if (clipboardContent.contains(child.getText)) return NoSuggestion //this is action with copy to clipboard side effect, so we shouldn't suggest anything
+              }
+              catch {
+                case ignore: Exception =>
+              }
               lastTimeForPopup = System.currentTimeMillis()
               return SuggestingUtil.createSuggestion(None, POPUP_MESSAGE)
             }

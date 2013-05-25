@@ -24,26 +24,36 @@ class IntroduceVariableSuggester extends FeatureSuggester {
   def getSuggestion(actions: List[UserAction], anActions: List[UserAnAction]): Suggestion = {
     actions.last match {
       case ChildRemovedAction(parent, child: PsiExpression) =>
-        val contents = ClipboardSynchronizer.getInstance().getContents
-        if (contents != null) {
-          val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
-          if (clipboardContent == child.getText) {
-            //let's store this action
-            val method: PsiMethod = PsiTreeUtil.getParentOfType(parent, classOf[PsiMethod], false)
-            if (method == null) return NoSuggestion
-            copiedExpression = Some(Expr(child.getText, method))
+        try {
+          val contents = ClipboardSynchronizer.getInstance().getContents
+          if (contents != null) {
+            val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
+            if (clipboardContent == child.getText) {
+              //let's store this action
+              val method: PsiMethod = PsiTreeUtil.getParentOfType(parent, classOf[PsiMethod], false)
+              if (method == null) return NoSuggestion
+              copiedExpression = Some(Expr(child.getText, method))
+            }
           }
         }
+        catch {
+          case ignore: Exception =>
+        }
       case ChildReplacedAction(parent, error: PsiErrorElement, child: PsiExpression) =>
-        val contents = ClipboardSynchronizer.getInstance().getContents
-        if (contents != null) {
-          val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
-          if (clipboardContent == child.getText) {
-            //let's store this action
-            val method: PsiMethod = PsiTreeUtil.getParentOfType(parent, classOf[PsiMethod], false)
-            if (method == null) return NoSuggestion
-            copiedExpression = Some(Expr(child.getText, method))
+        try {
+          val contents = ClipboardSynchronizer.getInstance().getContents
+          if (contents != null) {
+            val clipboardContent = contents.getTransferData(DataFlavor.stringFlavor).asInstanceOf[String]
+            if (clipboardContent == child.getText) {
+              //let's store this action
+              val method: PsiMethod = PsiTreeUtil.getParentOfType(parent, classOf[PsiMethod], false)
+              if (method == null) return NoSuggestion
+              copiedExpression = Some(Expr(child.getText, method))
+            }
           }
+        }
+        catch {
+          case ignore: Exception =>
         }
       case ChildAddedAction(parent: PsiLocalVariable, expr: PsiExpression) =>
         if (checkLocalVariable(parent, expr)) {
