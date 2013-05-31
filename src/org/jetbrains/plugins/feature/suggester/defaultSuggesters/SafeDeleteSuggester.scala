@@ -12,7 +12,7 @@ import java.awt.datatransfer.DataFlavor
  * @since 24.05.13
  */
 class SafeDeleteSuggester extends FeatureSuggester {
-  val POPUP_MESSAGE = "Why not to try Safe Delete action (Alt + Delete)"
+  val POPUP_MESSAGE = "Could be safer to use Safe Delete instead (Alt + Delete)"
 
   private var lastTimeForPopup = 0L
 
