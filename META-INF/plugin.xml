@@ -7,7 +7,7 @@
     <version>VERSION</version>
     <vendor url="http://www.jetbrains.com">JetBrains</vendor>
 
-    <idea-version since-build="133.193"/>
+    <idea-version since-build="135.760"/>
 
     <extensionPoints>
         <extensionPoint name="featureSuggester" interface="org.jetbrains.plugins.feature.suggester.FeatureSuggester"/>
