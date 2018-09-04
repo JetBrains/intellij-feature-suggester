@@ -7,7 +7,7 @@
     <version>VERSION</version>
     <vendor url="http://www.jetbrains.com">JetBrains</vendor>
 
-    <idea-version since-build="135.760"/>
+    <idea-version since-build="182.3911"/>
 
     <extensionPoints>
         <extensionPoint name="featureSuggester" interface="org.jetbrains.plugins.feature.suggester.FeatureSuggester"/>
@@ -21,7 +21,7 @@
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.SuppressWarningSuggester"/>
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.IntroduceVariableSuggester"/>
         <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.RemoveElseActionSuggester"/>
-        <featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.AutoindentLinesSuggester"/>
+        <!--<featureSuggester.featureSuggester implementation="org.jetbrains.plugins.feature.suggester.defaultSuggesters.AutoindentLinesSuggester"/>-->
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
