@@ -28,7 +28,7 @@ class LineCommentingSuggester : FeatureSuggester {
             return NoSuggestion
         }
 
-        when (val lastAction = actions.last) {
+        when (val lastAction = actions.last()) {
             is ChildAddedAction -> {
                 val child = lastAction.newChild
                 if (isOneLineComment(child)
