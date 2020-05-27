@@ -7,6 +7,8 @@ plugins {
 group 'org.jetbrains'
 version '1.0-SNAPSHOT'
 
+ideaICSourcesPath = "C:/Gradle/gradle-6.4.1/bin/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2020.1/cbeeb1f1aebd4c9ea8fb5ab990c5904a676fc41a/ideaIC-2020.1"
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -22,6 +24,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version '2020.1'
+    plugins 'java'
 }
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -33,4 +36,7 @@ patchPluginXml {
     changeNotes """
       Add change notes here.<br>
       <em>most HTML tags may be used</em>"""
+}
+test {
+    systemProperty "idea.home.path", ideaICSourcesPath
 }
