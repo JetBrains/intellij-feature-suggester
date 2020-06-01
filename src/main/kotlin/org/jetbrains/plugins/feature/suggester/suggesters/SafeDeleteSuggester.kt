@@ -23,7 +23,7 @@ class SafeDeleteSuggester : FeatureSuggester {
 
     /**
      * Returns PopupSuggestion when user removing variable/field/method/class declaration
-     * (Changed from old version)
+     * (CHANGED FROM LAST VERSION)
      */
     override fun getSuggestion(actions: UserActionsCache, anActions: UserAnActionsCache): Suggestion {
         val name = CommandProcessor.getInstance().currentCommandName
