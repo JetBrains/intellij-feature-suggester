@@ -23,8 +23,8 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.1'
-    plugins 'java'
+    version '2020.1.3'
+    plugins 'java', 'PythonCore:201.8538.31'
 }
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
