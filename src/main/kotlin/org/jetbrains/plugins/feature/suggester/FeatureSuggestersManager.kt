@@ -29,7 +29,7 @@ class FeatureSuggestersManager(val project: Project) : FileEditorManagerListener
     private var psiListenersIsSet: Boolean = false
 
     fun actionPerformed(action: UserAction) {
-        actionsCache.add(action)
+        actionsHistory.add(action)
         for (suggester in FeatureSuggester.suggesters) {
             if (!isEnabled(suggester)) continue
             val suggestion = suggester.getSuggestion(actionsHistory, anActionsHistory)
