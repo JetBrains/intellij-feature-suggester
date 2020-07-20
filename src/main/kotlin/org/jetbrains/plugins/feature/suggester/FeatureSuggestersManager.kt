@@ -30,13 +30,8 @@ class FeatureSuggestersManager(val project: Project) : FileEditorManagerListener
 
     private var listenersIsSet: Boolean = false
 
-    fun actionPerformed(action: UserAction) {
+    fun actionPerformed(action: Action) {
         actionsHistory.add(action)
-        processSuggesters()
-    }
-
-    fun anActionPerformed(anAction: UserAnAction) {
-        anActionsHistory.add(anAction)
         processSuggesters()
     }
 
