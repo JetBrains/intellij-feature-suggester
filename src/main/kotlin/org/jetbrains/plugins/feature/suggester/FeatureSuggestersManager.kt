@@ -11,7 +11,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import org.jetbrains.plugins.feature.suggester.actions.Action
-import org.jetbrains.plugins.feature.suggester.actions.isAfterAction
 import org.jetbrains.plugins.feature.suggester.actions.listeners.DocumentActionsListener
 import org.jetbrains.plugins.feature.suggester.actions.listeners.EditorActionsListener
 import org.jetbrains.plugins.feature.suggester.actions.listeners.PsiActionsListener
