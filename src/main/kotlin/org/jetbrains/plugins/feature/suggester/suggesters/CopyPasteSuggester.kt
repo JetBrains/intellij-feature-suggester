@@ -9,6 +9,7 @@ import org.jetbrains.plugins.feature.suggester.actions.BeforeEditorCopyAction
 import org.jetbrains.plugins.feature.suggester.actions.EditorCopyAction
 import org.jetbrains.plugins.feature.suggester.history.UserActionsHistory
 import java.awt.datatransfer.Transferable
+import java.util.concurrent.TimeUnit
 
 class CopyPasteSuggester : FeatureSuggester {
     companion object {
@@ -17,8 +18,10 @@ class CopyPasteSuggester : FeatureSuggester {
         const val MIN_OCCURRENCE_INDEX = 1
         const val MAX_OCCURRENCE_INDEX = 2
         const val MAX_COPY_INTERVAL_TIME_MILLIS = 20000L
+        const val MIN_NOTIFICATION_INTERVAL_DAYS = 14
     }
 
+    private val actionsSummary = actionsLocalSummary()
     private val copyPasteManager = CopyPasteManager.getInstance()
 
     override fun getSuggestion(actions: UserActionsHistory): Suggestion {
@@ -43,6 +46,14 @@ class CopyPasteSuggester : FeatureSuggester {
             }
         }
         return NoSuggestion
+    }
+
+    override fun isSuggestionNeeded(): Boolean {
+        return super.isSuggestionNeeded(
+            actionsSummary,
+            SUGGESTING_ACTION_ID,
+            TimeUnit.DAYS.toMillis(MIN_NOTIFICATION_INTERVAL_DAYS.toLong())
+        )
     }
 
     override val suggestingActionDisplayName: String = "Paste from history"

@@ -23,8 +23,9 @@ class FeatureSuggestersManager(val project: Project) {
 
     private fun processSuggesters() {
         for (suggester in FeatureSuggester.suggesters) {
-            if (!suggester.isEnabled()) continue
-            processSuggester(suggester)
+            if (suggester.isEnabled() && suggester.isSuggestionNeeded()) {
+                processSuggester(suggester)
+            }
         }
     }
 
