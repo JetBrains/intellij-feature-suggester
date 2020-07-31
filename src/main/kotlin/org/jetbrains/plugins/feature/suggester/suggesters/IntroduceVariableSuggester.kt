@@ -127,5 +127,7 @@ class IntroduceVariableSuggester : FeatureSuggester {
         return elements[elements.size - 2] as? PsiExpression
     }
 
+    override val id: String = "Introduce variable"
+
     override val suggestingActionDisplayName: String = "Introduce variable"
 }

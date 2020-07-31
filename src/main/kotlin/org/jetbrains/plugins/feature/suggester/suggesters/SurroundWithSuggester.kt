@@ -120,5 +120,7 @@ class SurroundWithSuggester : FeatureSuggester {
         return this is PsiIfStatement || this is PsiForStatement || this is PsiWhileStatement
     }
 
+    override val id: String = "Surround with"
+
     override val suggestingActionDisplayName: String = "Surround with"
 }

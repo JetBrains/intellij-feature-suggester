@@ -51,5 +51,7 @@ interface FeatureSuggester {
         }
     }
 
+    val id: String
+
     val suggestingActionDisplayName: String
 }

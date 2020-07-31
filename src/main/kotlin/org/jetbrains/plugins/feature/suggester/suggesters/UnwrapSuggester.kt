@@ -87,5 +87,7 @@ class UnwrapSuggester : FeatureSuggester {
         return this is PsiIfStatement || this is PsiForStatement || this is PsiWhileStatement
     }
 
+    override val id: String = "Unwrap"
+
     override val suggestingActionDisplayName: String = "Unwrap"
 }
