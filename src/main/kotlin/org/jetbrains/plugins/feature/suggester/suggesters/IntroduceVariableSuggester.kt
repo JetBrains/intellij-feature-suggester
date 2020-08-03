@@ -1,7 +1,10 @@
 package org.jetbrains.plugins.feature.suggester.suggesters
 
 import com.intellij.openapi.ide.CopyPasteManager
-import com.intellij.psi.*
+import com.intellij.psi.PsiElement
+import org.jetbrains.kotlin.psi.KtCallExpression
+import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
+import org.jetbrains.kotlin.psi.psiUtil.getTopmostParentOfType
 import org.jetbrains.plugins.feature.suggester.FeatureSuggester
 import org.jetbrains.plugins.feature.suggester.FeatureSuggester.Companion.createMessageWithShortcut
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
@@ -11,8 +14,8 @@ import org.jetbrains.plugins.feature.suggester.actions.ChildAddedAction
 import org.jetbrains.plugins.feature.suggester.actions.ChildReplacedAction
 import org.jetbrains.plugins.feature.suggester.actions.ChildrenChangedAction
 import org.jetbrains.plugins.feature.suggester.history.UserActionsHistory
-import java.util.concurrent.TimeUnit
 import org.jetbrains.plugins.feature.suggester.suggesters.lang.LanguageSupport
+import java.util.concurrent.TimeUnit
 
 class IntroduceVariableSuggester : FeatureSuggester {
     companion object {
