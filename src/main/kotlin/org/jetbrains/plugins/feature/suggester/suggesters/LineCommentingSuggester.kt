@@ -12,6 +12,7 @@ import org.jetbrains.plugins.feature.suggester.history.ChangesHistory
 import org.jetbrains.plugins.feature.suggester.history.UserActionsHistory
 import org.jetbrains.plugins.feature.suggester.suggesters.lang.LanguageSupport
 import java.lang.ref.WeakReference
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 class LineCommentingSuggester : FeatureSuggester {
@@ -23,11 +24,13 @@ class LineCommentingSuggester : FeatureSuggester {
         const val DESCRIPTOR_ID = "codeassists.comment.line"
         const val NUMBER_OF_COMMENTS_TO_GET_SUGGESTION = 3
         const val MAX_TIME_MILLIS_INTERVAL_BETWEEN_COMMENTS = 5000
+        const val MIN_NOTIFICATION_INTERVAL_DAYS = 14
     }
 
     private data class DocumentLine(val startOffset: Int, val endOffset: Int, val text: String)
     private data class CommentData(val lineNumber: Int, val documentRef: WeakReference<Document>, val timeMillis: Long)
 
+    private val actionsSummary = actionsLocalSummary()
     override lateinit var langSupport: LanguageSupport
 
     private val commentsHistory = ChangesHistory<CommentData>(NUMBER_OF_COMMENTS_TO_GET_SUGGESTION)
@@ -65,6 +68,14 @@ class LineCommentingSuggester : FeatureSuggester {
         }
 
         return NoSuggestion
+    }
+
+    override fun isSuggestionNeeded(): Boolean {
+        return super.isSuggestionNeeded(
+            actionsSummary,
+            SUGGESTING_ACTION_ID,
+            TimeUnit.DAYS.toMillis(MIN_NOTIFICATION_INTERVAL_DAYS.toLong())
+        )
     }
 
     private fun isCommentSymbolAdded(action: EditorTextInsertedAction, symbol: Char): Boolean {
@@ -115,6 +126,8 @@ class LineCommentingSuggester : FeatureSuggester {
             text = getText(TextRange(startOffset, endOffset))
         )
     }
+
+    override val id: String = "Comment with line comment"
 
     override val suggestingActionDisplayName: String = "Comment with line comment"
 }

@@ -11,6 +11,7 @@ import org.jetbrains.plugins.feature.suggester.actions.ChildAddedAction
 import org.jetbrains.plugins.feature.suggester.actions.ChildReplacedAction
 import org.jetbrains.plugins.feature.suggester.actions.PsiAction
 import org.jetbrains.plugins.feature.suggester.history.UserActionsHistory
+import java.util.concurrent.TimeUnit
 import org.jetbrains.plugins.feature.suggester.suggesters.lang.LanguageSupport
 
 class SurroundWithSuggester : FeatureSuggester {
@@ -18,7 +19,10 @@ class SurroundWithSuggester : FeatureSuggester {
         const val POPUP_MESSAGE = "Why not to use Surround With action?"
         const val SUGGESTING_ACTION_ID = "SurroundWith"
         const val SUGGESTING_TIP_FILENAME = "neue-SurroundWith.html"
+        const val MIN_NOTIFICATION_INTERVAL_DAYS = 14
     }
+
+    private val actionsSummary = actionsLocalSummary()
 
     private class SurroundingStatementData(var surroundingStatement: PsiElement) {
         val startOffset: Int = surroundingStatement.startOffset
@@ -91,6 +95,14 @@ class SurroundWithSuggester : FeatureSuggester {
         return NoSuggestion
     }
 
+    override fun isSuggestionNeeded(): Boolean {
+        return super.isSuggestionNeeded(
+            actionsSummary,
+            SUGGESTING_ACTION_ID,
+            TimeUnit.DAYS.toMillis(MIN_NOTIFICATION_INTERVAL_DAYS.toLong())
+        )
+    }
+
     private fun updateStatementReference(action: PsiAction) {
         val psiFile = action.parent?.containingFile ?: return
         val element = psiFile.findElementAt(surroundingStatementData!!.startOffset) ?: return
@@ -130,6 +142,8 @@ class SurroundWithSuggester : FeatureSuggester {
                 || langSupport.isForStatement(this)
                 || langSupport.isWhileStatement(this)
     }
+
+    override val id: String = "Surround with"
 
     override val suggestingActionDisplayName: String = "Surround with"
 }
