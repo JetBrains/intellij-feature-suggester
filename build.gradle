@@ -23,8 +23,8 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version 'LATEST-EAP-SNAPSHOT'
-    plugins 'java', 'Kotlin', 'PythonCore:202.6397.22'
+    version 'IU-LATEST-EAP-SNAPSHOT'
+    plugins 'java', 'Kotlin', 'JavaScript', 'Pythonid:202.6397.98'
 }
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
