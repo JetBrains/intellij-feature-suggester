@@ -24,9 +24,16 @@ class IntroduceVariableSuggester : FeatureSuggester {
         const val DESCRIPTOR_ID = "refactoring.introduceVariable"
     }
 
-    private data class ExtractedExpressionData(val exprText: String, var changedStatement: PsiElement) {
+    private data class ExtractedExpressionData(var exprText: String, var changedStatement: PsiElement) {
+        val changedStatementText: String
         var declaration: PsiElement? = null
         var variableEditingFinished: Boolean = false
+
+        init {
+            val text = changedStatement.text
+            changedStatementText = text.replaceFirst(exprText, "").trim()
+            exprText = exprText.trim()
+        }
 
         fun getDeclarationText(): String? {
             return declaration?.text
@@ -42,18 +49,14 @@ class IntroduceVariableSuggester : FeatureSuggester {
         when (lastAction) {
             is BeforeEditorTextRemovedAction -> {
                 with(lastAction) {
-                    if (text.isBlank()) return NoSuggestion
-                    val deletedText = text.trim()
-                    if (deletedText != CopyPasteManager.getInstance().contents?.asString()?.trim()) {
-                        return NoSuggestion
-                    }
+                    val deletedText = getCopiedContent(text) ?: return NoSuggestion
                     val psiFile = psiFileRef.get() ?: return NoSuggestion
-                    val countOfStartDelimiters = text.indexOfFirst { it != ' ' && it != '\n' }
+                    val contentOffset = offset + text.indexOfFirst { it != ' ' && it != '\n' }
                     val curElement =
-                        psiFile.findElementAt(offset + countOfStartDelimiters) ?: return NoSuggestion
-                    val changedStatement = curElement.getTopmostStatementWithText(deletedText)
-                    if (langSupport.isPartOfExpression(curElement) && changedStatement != null) {
-                        extractedExprData = ExtractedExpressionData(deletedText, changedStatement)
+                        psiFile.findElementAt(contentOffset) ?: return NoSuggestion
+                    val changedStatement = curElement.getTopmostStatementWithText(deletedText) ?: return NoSuggestion
+                    if (langSupport.isPartOfExpression(curElement)) {
+                        extractedExprData = ExtractedExpressionData(text, changedStatement)
                     }
                 }
             }
@@ -62,6 +65,8 @@ class IntroduceVariableSuggester : FeatureSuggester {
                 with(lastAction) {
                     if (isVariableDeclarationAdded()) {
                         extractedExprData!!.declaration = newChild
+                    } else if (newChild != null && newChild.text.trim() == extractedExprData!!.changedStatementText) {
+                        extractedExprData!!.changedStatement = newChild
                     } else if (isVariableInserted()) {
                         extractedExprData = null
                         return createSuggestion(
@@ -78,7 +83,7 @@ class IntroduceVariableSuggester : FeatureSuggester {
                 with(lastAction) {
                     if (isVariableDeclarationAdded()) {
                         extractedExprData!!.declaration = newChild
-                    } else if (newChild != null && newChild.text == extractedExprData!!.changedStatement.text) {
+                    } else if (newChild != null && newChild.text.trim() == extractedExprData!!.changedStatementText) {
                         extractedExprData!!.changedStatement = newChild
                     } else if (!extractedExprData!!.variableEditingFinished && isVariableEditingFinished()) {
                         extractedExprData!!.variableEditingFinished = true
@@ -98,6 +103,16 @@ class IntroduceVariableSuggester : FeatureSuggester {
             else -> NoSuggestion
         }
         return NoSuggestion
+    }
+
+    private fun getCopiedContent(text: String): String? {
+        if (text.isBlank()) return null
+        val content = text.trim()
+        return if (content == CopyPasteManager.getInstance().contents?.asString()?.trim()) {
+            content
+        } else {
+            null
+        }
     }
 
     private fun ChildReplacedAction.isVariableDeclarationAdded(): Boolean {
