@@ -48,6 +48,9 @@
                 implementation="org.jetbrains.plugins.feature.suggester.suggesters.CompletionPopupSuggester"/>
         <featureSuggester.featureSuggester
                 implementation="org.jetbrains.plugins.feature.suggester.suggesters.ReplaceCompletionSuggester"/>
+        <!--    TODO: uncomment when RunToCursor action statistics will be fixed                                                    -->
+        <!--        <featureSuggester.featureSuggester-->
+        <!--                implementation="org.jetbrains.plugins.feature.suggester.suggesters.RunToCursorSuggester"/>-->
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -62,9 +65,18 @@
         <editorFactoryDocumentListener
                 implementation="org.jetbrains.plugins.feature.suggester.listeners.DocumentActionsListener"/>
         <statistics.counterUsagesCollector groupId="feature_suggester" version="1"/>
-        <statistics.validation.customValidationRule implementation="org.jetbrains.plugins.feature.suggester.statistics.FeatureSuggesterIdRuleValidator"/>
-        <registryKey defaultValue="true" description="Send statistics about IDE Feature Suggester plugin usage" key="feature.suggester.send.statistics"/>
+        <statistics.validation.customValidationRule
+                implementation="org.jetbrains.plugins.feature.suggester.statistics.FeatureSuggesterIdRuleValidator"/>
+        <registryKey defaultValue="true" description="Send statistics about IDE Feature Suggester plugin usage"
+                     key="feature.suggester.send.statistics"/>
     </extensions>
+
+    <projectListeners>
+        <listener class="org.jetbrains.plugins.feature.suggester.listeners.BreakpointsListener"
+                  topic="com.intellij.xdebugger.breakpoints.XBreakpointListener"/>
+        <listener class="org.jetbrains.plugins.feature.suggester.listeners.DebuggerListener"
+                  topic="com.intellij.xdebugger.XDebuggerManagerListener"/>
+    </projectListeners>
 
     <applicationListeners>
         <listener class="org.jetbrains.plugins.feature.suggester.listeners.EditorActionsListener"
