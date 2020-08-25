@@ -17,7 +17,7 @@ import org.jetbrains.plugins.feature.suggester.suggesters.FeatureSuggester
         "notification.dont_suggest",
         "notification.thanks",
         "notification.learn_more",
-        "suggestion_thrown"
+        "suggestion_found"
     ],
     "event_data": {
         "suggester_id": [
@@ -33,7 +33,7 @@ class FeatureSuggestersStatisticsCollector {
         const val NOTIFICATION_DONT_SUGGEST_EVENT_ID = "notification.dont_suggest"
         const val NOTIFICATION_THANKS_EVENT_ID = "notification.thanks"
         const val NOTIFICATION_LEARN_MORE_EVENT_ID = "notification.learn_more"
-        const val SUGGESTION_THROWN = "suggestion_thrown"
+        const val SUGGESTION_FOUND = "suggestion_found"
     }
 
     fun sendStatistics(eventId: String, suggesterId: String) {
