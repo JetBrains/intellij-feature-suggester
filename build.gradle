@@ -14,7 +14,7 @@ def getGitHash = { ->
 }
 
 group 'org.jetbrains'
-version "202.${getGitHash()}"
+version "203.${getGitHash()}"
 
 def ideaICSourcesPath = "C:/Gradle/gradle-6.4.1/bin/caches/modules-2/files-2.1/com.jetbrains.intellij.idea/ideaIC/2020.1/cbeeb1f1aebd4c9ea8fb5ab990c5904a676fc41a/ideaIC-2020.1"
 
@@ -33,7 +33,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version 'IU-LATEST-EAP-SNAPSHOT'
-    plugins 'java', 'Kotlin', 'JavaScript', 'Pythonid:202.6397.98'
+    plugins 'java', 'Kotlin', 'JavaScript', 'Pythonid:203.6682.179'
 }
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
