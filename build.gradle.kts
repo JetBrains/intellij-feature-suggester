@@ -5,6 +5,7 @@ plugins {
     id("java")
     id("org.jetbrains.intellij") version "0.7.2"
     id("org.jetbrains.kotlin.jvm") version "1.3.72"
+    id("org.jetbrains.changelog") version "1.1.2"
 }
 
 fun getGitHash(): String {
@@ -17,7 +18,7 @@ fun getGitHash(): String {
 }
 
 group = "org.jetbrains"
-version "211.${getGitHash()}"
+version = "211.${getGitHash()}"
 
 repositories {
     mavenCentral()
@@ -34,6 +35,12 @@ intellij {
     setPlugins("java", "Kotlin", "JavaScript", "Pythonid:211.6222.4")
 }
 
+changelog {
+    version = project.version.toString()
+    groups = emptyList()
+    headerParserRegex = """\d+\.\d+""".toRegex()
+}
+
 tasks {
     withType<JavaCompile> {
         sourceCompatibility = "11"
@@ -45,6 +52,6 @@ tasks {
 
     patchPluginXml {
         sinceBuild("211")
-        changeNotes("Add change notes here.<br><em>most HTML tags may be used</em>")
+        changeNotes(changelog.getLatest().toHTML())
     }
 }
