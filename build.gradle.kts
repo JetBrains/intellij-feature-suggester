@@ -1,6 +1,14 @@
 import java.io.ByteArrayOutputStream
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+fun properties(key: String) = project.findProperty(key).toString()
+fun getGitHash() = ByteArrayOutputStream().let {
+    exec {
+        commandLine("git", "rev-list", "--count", "HEAD")
+        standardOutput = it
+    }
+}.toString().trim()
+
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "0.7.2"
@@ -8,31 +16,26 @@ plugins {
     id("org.jetbrains.changelog") version "1.1.2"
 }
 
-fun getGitHash(): String {
-    val stdout = ByteArrayOutputStream()
-    exec {
-        commandLine("git", "rev-list", "--count", "HEAD")
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
-group = "org.jetbrains"
-version = "211.${getGitHash()}"
+group = properties("pluginGroup")
+version = properties("projectMajorVersion") + ".${getGitHash()}"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk11")
     testCompile("junit:junit:4.12")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = "IU-211-EAP-SNAPSHOT"
-    setPlugins("java", "Kotlin", "JavaScript", "Pythonid:211.6222.4")
+    pluginName = properties("pluginName")
+    version = properties("platformVersion")
+    type = properties("platformType")
+    downloadSources = properties("platformDownloadSources").toBoolean()
+    updateSinceUntilBuild = true
+    setPlugins(*properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty).toTypedArray())
 }
 
 changelog {
@@ -51,7 +54,13 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild("211")
+        version(project.version)
+        sinceBuild(properties("pluginSinceBuild"))
+        untilBuild(properties("pluginUntilBuild"))
         changeNotes(changelog.getLatest().toHTML())
+    }
+
+    runPluginVerifier {
+        ideVersions(properties("pluginVerifierIdeVersions"))
     }
 }
