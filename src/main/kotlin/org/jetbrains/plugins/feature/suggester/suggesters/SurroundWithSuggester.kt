@@ -66,6 +66,7 @@ class SurroundWithSuggester : FeatureSuggester {
     private val actionsSummary = actionsLocalSummary()
     override lateinit var langSupport: LanguageSupport
 
+    @Suppress("NestedBlockDepth")
     override fun getSuggestion(actions: UserActionsHistory): Suggestion {
         val action = actions.lastOrNull() ?: return NoSuggestion
         if (State.surroundingStatement?.isValid == false && action is PsiAction) {
@@ -73,6 +74,7 @@ class SurroundWithSuggester : FeatureSuggester {
         }
         when (action) {
             is ChildReplacedAction -> {
+                @Suppress("ComplexCondition")
                 if (langSupport.isIfStatement(action.newChild) && action.oldChild.text == "i" ||
                     langSupport.isForStatement(action.newChild) && action.oldChild.text == "fo" ||
                     langSupport.isWhileStatement(action.newChild) && action.oldChild.text == "whil"
