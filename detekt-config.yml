@@ -1,6 +1,13 @@
 # Default detekt configuration:
 # https://github.com/detekt/detekt/blob/master/detekt-core/src/main/resources/default-detekt-config.yml
 
+complexity:
+  ComplexMethod:
+    active: false
+  LongMethod:
+    active: false
+  TooManyFunctions:
+    active: false
 formatting:
   Indentation:
     continuationIndentSize: 8
