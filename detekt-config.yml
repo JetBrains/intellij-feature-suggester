@@ -13,3 +13,6 @@ formatting:
     continuationIndentSize: 8
   ParameterListWrapping:
     indentSize: 4
+style:
+  ReturnCount:
+    active: false
