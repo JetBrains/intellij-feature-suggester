@@ -65,6 +65,7 @@ class RenamingSuggester : FeatureSuggester {
                         //  not only is this expensive, but will also cause stub PSI invalidation"
                         //  Can be reproduced placing '{' before another code block "{ ... }"
                         val declaration = parent.reference?.resolve() ?: parent
+                        @Suppress("SpreadOperator")
                         val references = arrayListOf(declaration, *declaration.getAllReferences().toTypedArray())
                         renamedIdentifiersData = RenamedIdentifiersData(oldChild.text, references)
                     }
