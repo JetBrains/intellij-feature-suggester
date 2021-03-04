@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package org.jetbrains.plugins.feature.suggester
 
 import com.intellij.internal.statistic.local.ActionsLocalSummary
