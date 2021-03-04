@@ -14,5 +14,7 @@ formatting:
   ParameterListWrapping:
     indentSize: 4
 style:
+  MagicNumber:
+    active: false
   ReturnCount:
     active: false
