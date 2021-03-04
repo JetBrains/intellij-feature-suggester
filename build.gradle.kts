@@ -1,5 +1,5 @@
-import java.io.ByteArrayOutputStream
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.ByteArrayOutputStream
 
 fun properties(key: String) = project.findProperty(key).toString()
 fun getGitHash() = ByteArrayOutputStream().let {
