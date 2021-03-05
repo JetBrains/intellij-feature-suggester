@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 fun properties(key: String) = project.findProperty(key).toString()
-fun getGitHash() = ByteArrayOutputStream().let {
+fun getGitHash() = ByteArrayOutputStream().apply {
     exec {
         commandLine("git", "rev-list", "--count", "HEAD")
-        standardOutput = it
+        standardOutput = this@apply
     }
 }.toString().trim()
 
