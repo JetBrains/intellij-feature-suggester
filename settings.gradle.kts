@@ -1,2 +1,1 @@
-rootProject.name = 'intellij-feature-suggester'
-
+rootProject.name = "intellij-feature-suggester"
