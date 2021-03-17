@@ -1,8 +1,8 @@
 # IDEA Feature Suggester 
 
-[![official JetBrains project](https://jb.gg/badges/official.svg)][jb:confluence-on-gh]
+![official JetBrains project](https://jb.gg/badges/official.svg)
 ![Downloads](https://img.shields.io/jetbrains/plugin/d/:7242)
-[![Build](https://github.com/JetBrains/intellij-feature-suggester/workflows/Build/badge.svg)][gh:build]
+![Build](https://github.com/JetBrains/intellij-feature-suggester/workflows/Build/badge.svg)
 
 ![Plugin logo](./.github/readme/JB_logo_FeatureSuggester.svg)
 
