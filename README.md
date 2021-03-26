@@ -28,11 +28,22 @@ Currently, the plugin fully supports Java and Kotlin, partially supports Python 
 
 ## Usage Instructions
 
-No exact instructions are intended at the moment. The plugin will notify you when some actions can be performed more efficiently.
+No exact instructions are intended at the moment. The plugin will notify you when some actions can be performed more efficiently. If you don't want to see some of the suggestions, you can configure the plugin settings:
+![](./.github/readme/Settings.png)
 
-Examples:
+Here are several examples of the suggestions you can get from the plugin:
 
+Conditional breakpoint
+![](./.github/readme/Conditional_breakpoint_suggestion_example.gif)
 
+File structure
+![](./.github/readme/File_structure_suggestion_example.gif)
+
+Surround with
+![](./.github/readme/Surround_with_suggestion_example.gif)
+
+Unwrap
+![](./.github/readme/Unwrap_suggestion_example.gif)
 
 ***
 
