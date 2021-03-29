@@ -9,7 +9,12 @@
 <!-- Plugin description -->
 **IDEA Feature Suggester** is an IntelliJ Platform plugin that analyzes your actions while coding and suggests IDE actions to make you work more efficiently.
 
-Have you ever struggled to find an action in IntelliJ IDEA? Sometimes, for an inexperienced user, it may be challenging to perform some simple tasks. IDE is overloaded with tons of useful functionality, but it may be unclear what exactly you need at the moment. **IDEA Feature Suggester** can help you to find the necessary actions only when you really need them. It won't continuously spam you with tips. With this plugin, you can learn new and rediscover old IDE actions.
+Have you ever struggled to find an action in IntelliJ IDEA?
+Sometimes, for an inexperienced user, it may be challenging to perform some simple tasks.
+IDE is overloaded with tons of useful functionality, but it may be unclear what exactly you need at the moment.
+**IDEA Feature Suggester** can help you to find the necessary actions only when you really need them.
+It won't continuously spam you with tips.
+With this plugin, you can learn new and rediscover old IDE actions.
 
 Currently, it can suggest features related to working with a clipboard, comments, file structure, completion, refactoring, and debugging in Java, Kotlin, Python, and JavaScript.
 <!-- Plugin description end -->
@@ -28,23 +33,26 @@ Currently, the plugin fully supports Java and Kotlin, partially supports Python 
 
 ## Usage Instructions
 
-No exact instructions are intended at the moment. The plugin will notify you when some actions can be performed more efficiently. If you don't want to see some of the suggestions, you can configure the plugin settings:
+No exact instructions are intended at the moment.
+The plugin will notify you when some actions can be performed more efficiently.
+If you don't want to see some of the suggestions, you can configure the plugin settings:
 ![](./.github/readme/Settings.png)
 
 Here are several examples of the suggestions you can get from the plugin:
 
-Conditional breakpoint
+### Conditional breakpoint
 ![](./.github/readme/Conditional_breakpoint_suggestion_example.gif)
 
-File structure
+### File structure
 ![](./.github/readme/File_structure_suggestion_example.gif)
 
-Surround with
+### Surround with
 ![](./.github/readme/Surround_with_suggestion_example.gif)
 
-Unwrap
+### Unwrap
 ![](./.github/readme/Unwrap_suggestion_example.gif)
 
 ***
 
-**IDEA Feature Suggester** has been created as a concept during one of the internal JetBrains Hackathons in 2013. Recently, the codebase has been rewritten entirely from Scala to Kotlin language, and since then, it’s again actively maintained.
+**IDEA Feature Suggester** has been created as a concept during one of the internal JetBrains Hackathons in 2013.
+Recently, the codebase has been rewritten entirely from Scala to Kotlin language, and since then, it’s again actively maintained.
