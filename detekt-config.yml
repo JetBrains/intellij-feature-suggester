@@ -8,6 +8,9 @@ complexity:
     active: false
   TooManyFunctions:
     active: false
+exceptions:
+  SwallowedException:
+    active: false
 formatting:
   Indentation:
     continuationIndentSize: 8
