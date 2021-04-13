@@ -1,5 +1,7 @@
 # IDEA Feature Suggester Changelog
 
+## [Unreleased]
+
 ## [211.205]
 ### Changed
 - Make plugin compatible with 2021.1
