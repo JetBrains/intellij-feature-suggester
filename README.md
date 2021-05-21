@@ -12,7 +12,7 @@
 Have you ever struggled to find an action in IntelliJ IDEA?
 Sometimes, for an inexperienced user, it may be challenging to perform some simple tasks.
 IDE is overloaded with tons of useful functionality, but it may be unclear what exactly you need at the moment.
-**IDEA Feature Suggester** can help you to find the necessary actions only when you really need them.
+**IDEA Feature Suggester** can help you find the necessary actions only when you really need them.
 It won't continuously spam you with tips.
 With this plugin, you can learn new and rediscover old IDE actions.
 
@@ -35,7 +35,7 @@ Currently, the plugin fully supports Java and Kotlin, partially supports Python 
 
 No exact instructions are intended at the moment.
 The plugin will notify you when some actions can be performed more efficiently.
-If you don't want to see some of the suggestions, you can configure the plugin settings:
+If you don't want to see some suggestions, you can configure the plugin settings:
 ![](./.github/readme/Settings.png)
 
 Here are several examples of the suggestions you can get from the plugin:
