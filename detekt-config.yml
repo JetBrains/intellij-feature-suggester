@@ -11,15 +11,21 @@ complexity:
 exceptions:
   SwallowedException:
     active: false
+  TooGenericExceptionThrown:
+    active: false
 formatting:
   Indentation:
     continuationIndentSize: 8
   ParameterListWrapping:
     indentSize: 4
+  MaximumLineLength:
+    active: false
 style:
   ForbiddenComment:
     active: false
   MagicNumber:
+    active: false
+  MaxLineLength:
     active: false
   ReturnCount:
     active: false
