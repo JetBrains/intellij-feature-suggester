@@ -11,7 +11,7 @@ fun getGitHash() = ByteArrayOutputStream().apply {
 
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "0.7.3"
+    id("org.jetbrains.intellij") version "1.0"
     id("org.jetbrains.kotlin.jvm") version "1.5.10"
     id("org.jetbrains.changelog") version "1.1.2"
     id("io.gitlab.arturbosch.detekt") version "1.17.1"
@@ -23,7 +23,6 @@ version = properties("projectMajorVersion") + ".${getGitHash()}"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
@@ -33,12 +32,14 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    pluginName = properties("pluginName")
-    version = properties("platformVersion")
-    type = properties("platformType")
-    downloadSources = properties("platformDownloadSources").toBoolean()
-    updateSinceUntilBuild = true
-    setPlugins(*properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty).toTypedArray())
+    pluginName.set(properties("pluginName"))
+    version.set(properties("platformVersion"))
+    type.set(properties("platformType"))
+    downloadSources.set(properties("platformDownloadSources").toBoolean())
+    updateSinceUntilBuild.set(true)
+
+    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
+    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
 }
 
 changelog {
@@ -68,13 +69,13 @@ tasks {
     }
 
     patchPluginXml {
-        version(project.version)
-        sinceBuild(properties("pluginSinceBuild"))
-        untilBuild(properties("pluginUntilBuild"))
-        changeNotes(changelog.getLatest().toHTML())
+        version.set(project.version.toString())
+        sinceBuild.set(properties("pluginSinceBuild"))
+        untilBuild.set(properties("pluginUntilBuild"))
+        changeNotes.set(provider { changelog.getLatest().toHTML() })
     }
 
     runPluginVerifier {
-        ideVersions(properties("pluginVerifierIdeVersions"))
+        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
     }
 }
