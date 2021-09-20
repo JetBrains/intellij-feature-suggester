@@ -12,7 +12,7 @@ fun getGitHash() = ByteArrayOutputStream().apply {
 plugins {
     id("java")
     id("org.jetbrains.intellij") version "1.1.4"
-    id("org.jetbrains.kotlin.jvm") version "1.5.20"
+    id("org.jetbrains.kotlin.jvm") version "1.5.31"
     id("org.jetbrains.changelog") version "1.1.2"
     id("io.gitlab.arturbosch.detekt") version "1.17.1"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
