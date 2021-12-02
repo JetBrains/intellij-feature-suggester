@@ -72,7 +72,9 @@ class FeatureSuggestersManager(val project: Project) : Disposable {
         )
     }
 
-    override fun dispose() {}
+    override fun dispose() {
+        // do nothing
+    }
 
     private fun FeatureSuggester.isEnabled(): Boolean {
         return FeatureSuggesterSettings.instance().isEnabled(id)
