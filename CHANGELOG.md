@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [213.259]
+### Changed
+- Make plugin compatible with 2021.3
+- Fix some possible memory leaks 
+
 ## [212.245]
 ### Changed
 - Make plugin compatible with 2021.2
