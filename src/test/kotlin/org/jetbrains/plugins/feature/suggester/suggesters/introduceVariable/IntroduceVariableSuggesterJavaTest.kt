@@ -2,14 +2,19 @@ package org.jetbrains.plugins.feature.suggester.suggesters.introduceVariable
 
 import junit.framework.TestCase
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
 /**
  * Note: when user is declaring variable and it's name starts with any language keyword suggestion will not be thrown
  */
+@RunWith(JUnit4::class)
 class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
 
     override val testingCodeFileName = "JavaCodeExample.java"
 
+    @Test
     override fun `testIntroduce expression from IF and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 9, columnStartIndex = 23, lineEndIndex = 9, columnEndIndex = 38)
         insertNewLineAt(9, 8)
@@ -24,6 +29,7 @@ class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce full expression from method call and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 10, columnStartIndex = 48, lineEndIndex = 10, columnEndIndex = 31)
         insertNewLineAt(10, 12)
@@ -38,6 +44,7 @@ class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce part of expression from method call and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 10, columnStartIndex = 40, lineEndIndex = 10, columnEndIndex = 31)
         insertNewLineAt(10, 12)
@@ -52,6 +59,7 @@ class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce part of string expression from method call and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 47, columnStartIndex = 35, lineEndIndex = 47, columnEndIndex = 46)
         insertNewLineAt(47, 12)
@@ -66,6 +74,7 @@ class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce full expression from return statement and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 25, columnStartIndex = 19, lineEndIndex = 25, columnEndIndex = 63)
         insertNewLineAt(25, 12)
@@ -80,6 +89,7 @@ class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce expression from method body using copy and backspace and get suggestion`() {
         selectBetweenLogicalPositions(
             lineStartIndex = 38,
@@ -110,6 +120,7 @@ class IntroduceVariableSuggesterJavaTest : IntroduceVariableSuggesterTest() {
     /**
      * This case must throw suggestion but not working now
      */
+    @Test
     fun `testIntroduce part of string declaration expression and don't get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 48, columnStartIndex = 25, lineEndIndex = 48, columnEndIndex = 49)
         insertNewLineAt(48, 12)

@@ -3,12 +3,17 @@ package org.jetbrains.plugins.feature.suggester.suggesters.renaming
 import junit.framework.TestCase
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
 import org.junit.Ignore
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
 @Ignore
+@RunWith(JUnit4::class)
 class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
 
     override val testingCodeFileName: String = "PythonCodeExample.py"
 
+    @Test
     override fun `testAdd one symbol to identifiers of local variable and catch suggestion`() {
         moveCaretToLogicalPosition(15, 31)
         myFixture.type("1")
@@ -24,6 +29,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testRemove one symbol from identifiers of local variable and catch suggestion`() {
         moveCaretToLogicalPosition(15, 31)
         deleteSymbolAtCaret()
@@ -39,6 +45,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit identifiers of local variable using different ways of typing and removing characters and catch suggestion`() {
         moveCaretToLogicalPosition(15, 31)
         deleteSymbolAtCaret()
@@ -64,6 +71,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit one identifier of local variable, replace old identifiers with edited identifier (using Copy+Paste) and catch suggestion`() {
         moveCaretToLogicalPosition(15, 31)
         myFixture.type("1")
@@ -87,6 +95,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit identifiers of method and catch suggestion`() {
         moveCaretToLogicalPosition(15, 8)
         deleteSymbolAtCaret()
@@ -100,6 +109,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit identifiers of field and catch suggestion`() {
         moveCaretToLogicalPosition(27, 51)
         myFixture.type("aa")
@@ -115,6 +125,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit identifiers of function parameter and catch suggestion`() {
         moveCaretToLogicalPosition(10, 16)
         myFixture.type("abc")
@@ -128,6 +139,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit identifiers of field but leave them unchanged and don't catch suggestion`() {
         moveCaretToLogicalPosition(18, 9)
         deleteSymbolsAtCaret(2)
@@ -150,6 +162,7 @@ class RenamingSuggesterPythonTest : RenamingSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testEdit identifiers that references to different variables and don't catch suggestion`() {
         moveCaretToLogicalPosition(9, 21)
         deleteSymbolAtCaret()

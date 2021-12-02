@@ -1,11 +1,16 @@
 package org.jetbrains.plugins.feature.suggester.suggesters.replaceCompletion
 
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
 
     override val testingCodeFileName: String = "KotlinCodeExample.kt"
 
+    @Test
     override fun `testDelete and type dot, complete method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(12, 20)
         deleteAndTypeDot()
@@ -18,6 +23,7 @@ class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(64, 57)
         val variants = completeBasic() ?: fail()
@@ -34,6 +40,7 @@ class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete with method call, add parameter to method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(64, 57)
         val variants = completeBasic() ?: fail()
@@ -51,6 +58,7 @@ class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete with property, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(64, 30)
         val variants = completeBasic() ?: fail()
@@ -62,6 +70,7 @@ class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion inside arguments list, complete method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(64, 88)
         val variants = completeBasic() ?: fail()
@@ -73,6 +82,7 @@ class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, type additional characters, complete, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(64, 30)
         completeBasic()
@@ -86,6 +96,7 @@ class ReplaceCompletionSuggesterKotlinTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete method call, remove another equal identifier and don't get suggestion`() {
         moveCaretToLogicalPosition(64, 57)
         val variants = completeBasic() ?: fail()

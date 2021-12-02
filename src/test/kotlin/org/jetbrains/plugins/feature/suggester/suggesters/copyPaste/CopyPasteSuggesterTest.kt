@@ -3,12 +3,17 @@ package org.jetbrains.plugins.feature.suggester.suggesters.copyPaste
 import junit.framework.TestCase
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
 import org.jetbrains.plugins.feature.suggester.suggesters.FeatureSuggesterTest
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class CopyPasteSuggesterTest : FeatureSuggesterTest() {
 
     override val testingCodeFileName: String = "PythonCodeExample.py"
     override val testingSuggesterId: String = "Paste from history"
 
+    @Test
     fun `testCopy text that contained in clipboard at first index and get suggestion`() {
         copyBetweenLogicalPositions(lineStartIndex = 6, columnStartIndex = 14, lineEndIndex = 6, columnEndIndex = 0)
         copyBetweenLogicalPositions(lineStartIndex = 5, columnStartIndex = 5, lineEndIndex = 5, columnEndIndex = 0)
@@ -19,6 +24,7 @@ class CopyPasteSuggesterTest : FeatureSuggesterTest() {
         }
     }
 
+    @Test
     fun `testCopy text that contained in clipboard at second index and get suggestion`() {
         copyBetweenLogicalPositions(lineStartIndex = 9, columnStartIndex = 23, lineEndIndex = 9, columnEndIndex = 0)
         copyBetweenLogicalPositions(lineStartIndex = 10, columnStartIndex = 23, lineEndIndex = 10, columnEndIndex = 0)
@@ -30,6 +36,7 @@ class CopyPasteSuggesterTest : FeatureSuggesterTest() {
         }
     }
 
+    @Test
     fun `testCopy same text twice in a row and don't get suggestion`() {
         copyBetweenLogicalPositions(lineStartIndex = 31, columnStartIndex = 11, lineEndIndex = 31, columnEndIndex = 16)
         copyBetweenLogicalPositions(lineStartIndex = 17, columnStartIndex = 6, lineEndIndex = 17, columnEndIndex = 11)
@@ -39,6 +46,7 @@ class CopyPasteSuggesterTest : FeatureSuggesterTest() {
         }
     }
 
+    @Test
     fun `testCopy text that contained in clipboard at third index and don't get suggestion`() {
 
         copyBetweenLogicalPositions(lineStartIndex = 26, columnStartIndex = 31, lineEndIndex = 26, columnEndIndex = 0)

@@ -2,11 +2,16 @@ package org.jetbrains.plugins.feature.suggester.suggesters.replaceCompletion
 
 import junit.framework.TestCase
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
 
     override val testingCodeFileName: String = "JavaCodeExample.java"
 
+    @Test
     override fun `testDelete and type dot, complete method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(12, 20)
         deleteAndTypeDot()
@@ -19,6 +24,7 @@ class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(61, 60)
         val variants = completeBasic() ?: fail()
@@ -35,6 +41,7 @@ class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete with method call, add parameter to method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(61, 60)
         val variants = completeBasic() ?: fail()
@@ -52,6 +59,7 @@ class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete with property, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(61, 33)
         val variants = completeBasic() ?: fail()
@@ -63,6 +71,7 @@ class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion inside arguments list, complete method call, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(61, 91)
         val variants = completeBasic() ?: fail()
@@ -74,6 +83,7 @@ class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, type additional characters, complete, remove previous identifier and get suggestion`() {
         moveCaretToLogicalPosition(61, 33)
         completeBasic()
@@ -87,6 +97,7 @@ class ReplaceCompletionSuggesterJavaTest : ReplaceCompletionSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testCall completion, complete method call, remove another equal identifier and don't get suggestion`() {
         moveCaretToLogicalPosition(61, 60)
         val variants = completeBasic() ?: fail()

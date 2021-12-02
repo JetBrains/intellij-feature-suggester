@@ -1,12 +1,18 @@
 package org.jetbrains.plugins.feature.suggester.suggesters.introduceVariable
 
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+
 /**
  * Note: when user is declaring variable and it's name starts with any language keyword suggestion will not be thrown
  */
+@RunWith(JUnit4::class)
 class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
 
     override val testingCodeFileName: String = "PythonCodeExample.py"
 
+    @Test
     override fun `testIntroduce expression from IF and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 3, columnStartIndex = 2, lineEndIndex = 3, columnEndIndex = 12)
         insertNewLineAt(3)
@@ -20,6 +26,7 @@ class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce full expression from method call and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 27, columnStartIndex = 25, lineEndIndex = 27, columnEndIndex = 57)
         insertNewLineAt(27, 8)
@@ -33,6 +40,7 @@ class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce part of expression from method call and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 27, columnStartIndex = 56, lineEndIndex = 27, columnEndIndex = 46)
         insertNewLineAt(27, 8)
@@ -46,6 +54,7 @@ class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce part of string expression from method call and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 36, columnStartIndex = 18, lineEndIndex = 36, columnEndIndex = 37)
         insertNewLineAt(36, 4)
@@ -59,6 +68,7 @@ class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce full expression from return statement and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 37, columnStartIndex = 11, lineEndIndex = 37, columnEndIndex = 42)
         insertNewLineAt(37, 4)
@@ -72,6 +82,7 @@ class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testIntroduce expression from method body using copy and backspace and get suggestion`() {
         selectBetweenLogicalPositions(
             lineStartIndex = 27,
@@ -98,6 +109,7 @@ class IntroduceVariableSuggesterPythonTest : IntroduceVariableSuggesterTest() {
         }
     }
 
+    @Test
     fun `testIntroduce part of string declaration expression and get suggestion`() {
         cutBetweenLogicalPositions(lineStartIndex = 35, columnStartIndex = 13, lineEndIndex = 35, columnEndIndex = 24)
         insertNewLineAt(35, 4)

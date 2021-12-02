@@ -2,11 +2,16 @@ package org.jetbrains.plugins.feature.suggester.suggesters.surroundWith
 
 import junit.framework.TestCase
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
 
     override val testingCodeFileName: String = "JavaCodeExample.java"
 
+    @Test
     override fun `testSurround one statement with IF and get suggestion`() {
         insertNewLineAt(6)
         type("if () {")
@@ -18,6 +23,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testSurround 2 statements with IF and add '}' at the line with second statement and get suggestion`() {
         insertNewLineAt(5)
         type("if (true){")
@@ -29,6 +35,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testSurround all statements in block with IF and get suggestion`() {
         insertNewLineAt(5)
         type("if(){")
@@ -40,6 +47,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testSurround one statement with IF in one line and get suggestion`() {
         moveCaretToLogicalPosition(6, 8)
         type("if(1 > 2 ){")
@@ -51,6 +59,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testSurround statements with FOR and get suggestion`() {
         insertNewLineAt(6)
         type("for (int i = 0; i < 10; i++) {")
@@ -62,6 +71,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testSurround statements with WHILE and get suggestion`() {
         insertNewLineAt(7)
         type("while(false && true){")
@@ -73,6 +83,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     fun `testSurround IfStatement with IF and get suggestion`() {
         insertNewLineAt(9)
         type("if (false && true){")
@@ -87,6 +98,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
     /**
      * This case must throw suggestion but not working now
      */
+    @Test
     fun `testSurround statements with FOREACH and don't get suggestion`() {
         insertNewLineAt(6)
         type("for (int a: list) {")
@@ -98,6 +110,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testSurround 0 statements with IF and don't get suggestion`() {
         insertNewLineAt(6)
         type("if (true) {    }")
@@ -107,6 +120,7 @@ class SurroundWithSuggesterJavaTest : SurroundWithSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testWrite if() but add braces in another place and don't get suggestion`() {
         insertNewLineAt(6)
         type("if() ")

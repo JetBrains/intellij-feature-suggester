@@ -2,11 +2,16 @@ package org.jetbrains.plugins.feature.suggester.suggesters.fileStructure
 
 import junit.framework.TestCase
 import org.jetbrains.plugins.feature.suggester.NoSuggestion
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(JUnit4::class)
 class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
 
     override val testingCodeFileName: String = "PythonCodeExample.py"
 
+    @Test
     override fun `testFind field and get suggestion`() {
         val fromOffset = logicalPositionToOffset(16, 0)
         performFindInFileAction("field", fromOffset)
@@ -17,6 +22,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     fun `testFind global variable and get suggestion`() {
         val fromOffset = logicalPositionToOffset(0, 0)
         performFindInFileAction("bcd", fromOffset)
@@ -27,6 +33,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testFind method and get suggestion`() {
         val fromOffset = logicalPositionToOffset(0, 0)
         performFindInFileAction("functi", fromOffset)
@@ -37,6 +44,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     fun `testFind class and get suggestion`() {
         val fromOffset = logicalPositionToOffset(0, 0)
         performFindInFileAction("clazz", fromOffset)
@@ -47,6 +55,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testFind function parameter and don't get suggestion`() {
         val fromOffset = logicalPositionToOffset(0, 0)
         performFindInFileAction("aaa", fromOffset)
@@ -57,6 +66,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testFind local variable declaration and don't get suggestion`() {
         val fromOffset = logicalPositionToOffset(35, 0)
         performFindInFileAction("strin", fromOffset)
@@ -77,6 +87,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testFind method usage and don't get suggestion`() {
         val fromOffset = logicalPositionToOffset(14, 0)
         performFindInFileAction("function", fromOffset)
@@ -87,6 +98,7 @@ class FileStructureSuggesterPythonTest : FileStructureSuggesterTest() {
         }
     }
 
+    @Test
     override fun `testFind type usage and don't get suggestion`() {
         val fromOffset = logicalPositionToOffset(31, 9)
         performFindInFileAction("Claz", fromOffset)
