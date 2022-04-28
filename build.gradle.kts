@@ -23,6 +23,12 @@ version = properties("projectMajorVersion") + ".${getGitHash()}"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://cache-redirector.jetbrains.com/www.jetbrains.com/intellij-repository/releases")
+    }
+    maven {
+        url = uri("https://cache-redirector.jetbrains.com/www.jetbrains.com/intellij-repository/snapshots")
+    }
 }
 
 dependencies {
