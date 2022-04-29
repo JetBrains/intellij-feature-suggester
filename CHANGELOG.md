@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [213.272]
+### Changed
+- Make plugin compatible with 2022.1
+- Release only light version of plugin that activates suggesters that already bundled to IDE Features Trainer plugin
+
 ## [213.259]
 ### Changed
 - Make plugin compatible with 2021.3
