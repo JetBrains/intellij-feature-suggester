@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [222.273]
+### Changed
+- Make plugin compatible with 2022.2
+
 ## [213.272]
 ### Changed
 - Make plugin compatible with 2022.1
