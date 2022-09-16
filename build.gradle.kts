@@ -80,7 +80,6 @@ tasks {
     patchPluginXml {
         version.set(project.version.toString())
         sinceBuild.set(properties("pluginSinceBuild"))
-        untilBuild.set(properties("pluginUntilBuild"))
         changeNotes.set(provider { changelog.getLatest().toHTML() })
     }
 
