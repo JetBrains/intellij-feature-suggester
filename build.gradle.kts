@@ -77,6 +77,10 @@ tasks {
         gradleVersion = properties("gradleVersion")
     }
 
+    buildSearchableOptions {
+        enabled = false
+    }
+
     patchPluginXml {
         version.set(project.version.toString())
         sinceBuild.set(properties("pluginSinceBuild"))
