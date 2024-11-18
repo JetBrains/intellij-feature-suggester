@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [243.282]
+## [243.283]
 ### Changed
 - Make plugin compatible with 2024.3
 
